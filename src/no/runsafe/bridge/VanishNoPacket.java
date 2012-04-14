@@ -7,6 +7,6 @@ public class VanishNoPacket extends RunsafePlugin
 	@Override
 	protected void PluginSetup()
 	{
-
+		addComponent(PlayerVanishStatus.class);
 	}
 }
