@@ -29,15 +29,15 @@ public class PlayerVanishStatus implements IMessageBusService
 		if(message.getQuestion().equals("get.player.invisibility.on"))
 		{
 			Response response = new Response();
-			if(vanishNoPacket.isVanished(player))
+			if(!vanishNoPacket.isVanished(player))
 			{
 				response.setStatus(MessageBusStatus.OK);
-				response.setResponse("Player is vanished");
+				response.setResponse("Player is not vanished");
 			}
 			else
 			{
 				response.setStatus(MessageBusStatus.NOT_OK);
-				response.setResponse("Player is not vanished");
+				response.setResponse("Player is vanished");
 			}
 			return  response;
 		}
