@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="RunsafeVanishBridge">
-    <output-path>$PROJECT_DIR$/out</output-path>
+    <output-path>$PROJECT_DIR$/../out</output-path>
     <root id="archive" name="RunsafeVanishBridge.jar">
       <element id="module-output" name="RunsafeVanishBridge" />
       <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
