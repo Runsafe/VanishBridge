@@ -25,7 +25,7 @@ public class PlayerVanishStatus implements IMessageBusService
 	@Override
 	public Response processMessage(Message message)
 	{
-		Player player = message.getPlayer().getRaw();
+		Player player = message.getPlayer().getRawPlayer();
 		if(message.getQuestion().equals("get.player.invisibility.on"))
 		{
 			Response response = new Response();
