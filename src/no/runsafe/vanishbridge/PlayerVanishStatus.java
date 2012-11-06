@@ -1,19 +1,35 @@
 package no.runsafe.vanishbridge;
 
+import no.runsafe.framework.hook.IPlayerDataProvider;
 import no.runsafe.framework.messaging.IMessageBusService;
 import no.runsafe.framework.messaging.Message;
 import no.runsafe.framework.messaging.MessageBusStatus;
 import no.runsafe.framework.messaging.Response;
 import no.runsafe.framework.plugin.PluginResolver;
+import no.runsafe.framework.server.player.RunsafePlayer;
 import org.bukkit.entity.Player;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
 
-public class PlayerVanishStatus implements IMessageBusService
+import java.util.HashMap;
+
+public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvider
 {
 	public PlayerVanishStatus(PluginResolver resolver)
 	{
 		vanishNoPacket = resolver.<VanishPlugin>getPlugin("VanishNoPacket").getManager();
+	}
+
+	@Override
+	public HashMap<String, String> GetPlayerData(RunsafePlayer player)
+	{
+		if(player.getRawPlayer() != null && vanishNoPacket.isVanished(player.getRawPlayer()))
+		{
+			HashMap<String, String> response = new HashMap<String, String>();
+			response.put("vanished", "true");
+			return response;
+		}
+		return null;
 	}
 
 	@Override
