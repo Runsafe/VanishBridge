@@ -2,6 +2,6 @@ name: RunsafeVanishNoPacketBridge
 version: 1.0
 description: MessageService plugin to ask VanishNoPacket about stuff
 author: Morten Nilsen
-main: no.runsafe.bridge.VanishNoPacket
+main: no.runsafe.vanishbridge.Plugin
 database: false
 depend: [VanishNoPacket]

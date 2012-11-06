@@ -1,4 +1,4 @@
-package no.runsafe.bridge;
+package no.runsafe.vanishbridge;
 
 import no.runsafe.framework.messaging.IMessageBusService;
 import no.runsafe.framework.messaging.Message;
@@ -66,5 +66,5 @@ public class PlayerVanishStatus implements IMessageBusService
 		return null;
 	}
 
-	private VanishManager vanishNoPacket;
+	private final VanishManager vanishNoPacket;
 }

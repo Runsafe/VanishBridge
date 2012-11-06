@@ -1,8 +1,8 @@
-package no.runsafe.bridge;
+package no.runsafe.vanishbridge;
 
 import no.runsafe.framework.RunsafePlugin;
 
-public class VanishNoPacket extends RunsafePlugin
+public class Plugin extends RunsafePlugin
 {
 	@Override
 	protected void PluginSetup()
