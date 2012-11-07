@@ -1,6 +1,7 @@
 package no.runsafe.vanishbridge;
 
 import no.runsafe.framework.hook.IPlayerDataProvider;
+import no.runsafe.framework.hook.IPlayerVisibility;
 import no.runsafe.framework.messaging.IMessageBusService;
 import no.runsafe.framework.messaging.Message;
 import no.runsafe.framework.messaging.MessageBusStatus;
@@ -13,7 +14,7 @@ import org.kitteh.vanish.VanishPlugin;
 
 import java.util.HashMap;
 
-public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvider
+public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvider, IPlayerVisibility
 {
 	public PlayerVanishStatus(PluginResolver resolver)
 	{
@@ -23,7 +24,7 @@ public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvid
 	@Override
 	public HashMap<String, String> GetPlayerData(RunsafePlayer player)
 	{
-		if(player.getRawPlayer() != null && vanishNoPacket.isVanished(player.getRawPlayer()))
+		if (player.getRawPlayer() != null && vanishNoPacket.isVanished(player.getRawPlayer()))
 		{
 			HashMap<String, String> response = new HashMap<String, String>();
 			response.put("vanished", "true");
@@ -39,13 +40,19 @@ public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvid
 	}
 
 	@Override
+	public boolean canPlayerASeeB(RunsafePlayer a, RunsafePlayer b)
+	{
+		return !vanishNoPacket.isVanished(b.getRawPlayer()) || a.hasPermission("vanish.see");
+	}
+
+	@Override
 	public Response processMessage(Message message)
 	{
 		Player player = message.getPlayer().getRawPlayer();
-		if(message.getQuestion().equals("get.player.invisibility.on"))
+		if (message.getQuestion().equals("get.player.invisibility.on"))
 		{
 			Response response = new Response();
-			if(!vanishNoPacket.isVanished(player))
+			if (!vanishNoPacket.isVanished(player))
 			{
 				response.setStatus(MessageBusStatus.OK);
 				response.setResponse("Player is not vanished");
@@ -55,11 +62,11 @@ public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvid
 				response.setStatus(MessageBusStatus.NOT_OK);
 				response.setResponse("Player is vanished");
 			}
-			return  response;
+			return response;
 		}
-		if(message.getQuestion().equals("set.player.invisibility.on"))
+		if (message.getQuestion().equals("set.player.invisibility.on"))
 		{
-			if(!vanishNoPacket.isVanished(player))
+			if (!vanishNoPacket.isVanished(player))
 			{
 				vanishNoPacket.toggleVanish(player);
 				Response response = new Response();
@@ -68,15 +75,15 @@ public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvid
 				return response;
 			}
 		}
-		if(message.getQuestion().equals("set.player.invisibility.off"))
+		if (message.getQuestion().equals("set.player.invisibility.off"))
 		{
-			if(vanishNoPacket.isVanished(player))
+			if (vanishNoPacket.isVanished(player))
 			{
 				vanishNoPacket.toggleVanish(player);
 				Response response = new Response();
 				response.setStatus(MessageBusStatus.OK);
 				response.setResponse("Player has appeared");
-				return  response;
+				return response;
 			}
 		}
 		return null;
