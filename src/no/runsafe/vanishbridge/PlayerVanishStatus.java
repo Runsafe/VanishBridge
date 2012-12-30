@@ -46,6 +46,12 @@ public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvid
 	}
 
 	@Override
+	public boolean isPlayerVanished(RunsafePlayer player)
+	{
+		return vanishNoPacket.isVanished(player.getRawPlayer());
+	}
+
+	@Override
 	public Response processMessage(Message message)
 	{
 		Player player = message.getPlayer().getRawPlayer();
