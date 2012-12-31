@@ -9,6 +9,7 @@ import no.runsafe.framework.messaging.Response;
 import no.runsafe.framework.plugin.PluginResolver;
 import no.runsafe.framework.server.player.RunsafePlayer;
 import org.bukkit.entity.Player;
+import org.joda.time.DateTime;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
 
@@ -30,6 +31,18 @@ public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvid
 			response.put("vanished", "true");
 			return response;
 		}
+		return null;
+	}
+
+	@Override
+	public DateTime GetPlayerLogout(RunsafePlayer player)
+	{
+		return null;
+	}
+
+	@Override
+	public String GetPlayerBanReason(RunsafePlayer player)
+	{
 		return null;
 	}
 
