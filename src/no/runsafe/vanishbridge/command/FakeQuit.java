@@ -25,6 +25,7 @@ public class FakeQuit extends RunsafeAsyncCommand
 	@Override
 	public String OnExecute(RunsafePlayer player, String[] strings)
 	{
+		manager.setVanished(player, false);
 		RunsafePlayerQuitEvent fake = new RunsafePlayerQuitEvent(new PlayerQuitEvent(player.getRawPlayer(), null));
 		fake.Fire();
 		manager.setVanished(player, true);
