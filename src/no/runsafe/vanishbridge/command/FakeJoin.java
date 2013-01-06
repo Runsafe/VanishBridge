@@ -25,9 +25,9 @@ public class FakeJoin extends RunsafeAsyncPlayerCommand
 	@Override
 	public String OnExecute(RunsafePlayer player, String[] strings)
 	{
+		manager.setVanished(player, false);
 		RunsafePlayerJoinEvent fake = new RunsafePlayerJoinEvent(new PlayerJoinEvent(player.getRawPlayer(), null));
 		fake.Fire();
-		manager.setVanished(player, false);
 		RunsafeServer.Instance.broadcastMessage(fake.getJoinMessage());
 		return null;
 	}
