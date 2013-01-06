@@ -15,9 +15,9 @@ import org.kitteh.vanish.VanishPlugin;
 
 import java.util.HashMap;
 
-public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvider, IPlayerVisibility
+public class PlayerVanishManager implements IMessageBusService, IPlayerDataProvider, IPlayerVisibility
 {
-	public PlayerVanishStatus(PluginResolver resolver)
+	public PlayerVanishManager(PluginResolver resolver)
 	{
 		vanishNoPacket = resolver.<VanishPlugin>getPlugin("VanishNoPacket").getManager();
 	}
@@ -106,6 +106,12 @@ public class PlayerVanishStatus implements IMessageBusService, IPlayerDataProvid
 			}
 		}
 		return null;
+	}
+
+	public void setVanished(RunsafePlayer player, boolean vanished)
+	{
+		if (vanishNoPacket.isVanished(player.getRawPlayer()) != vanished)
+			vanishNoPacket.toggleVanish(player.getRawPlayer());
 	}
 
 	private final VanishManager vanishNoPacket;

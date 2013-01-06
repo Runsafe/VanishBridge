@@ -5,3 +5,10 @@ author: Morten Nilsen
 main: no.runsafe.vanishbridge.Plugin
 database: false
 depend: [VanishNoPacket]
+commands:
+  fakequit:
+    description: Fakes a quit event and vanishes
+    aliases: [fq]
+  fakejoin:
+    description: Fakes a join event and unvanishes
+    aliases: [fj]
