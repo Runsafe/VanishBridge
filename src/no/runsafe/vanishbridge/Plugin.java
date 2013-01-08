@@ -12,5 +12,6 @@ public class Plugin extends RunsafePlugin
 		addComponent(PlayerVanishManager.class);
 		addComponent(FakeJoin.class);
 		addComponent(FakeQuit.class);
+		addComponent(VanishEvents.class);
 	}
 }

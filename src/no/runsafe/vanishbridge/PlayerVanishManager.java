@@ -7,19 +7,27 @@ import no.runsafe.framework.messaging.Message;
 import no.runsafe.framework.messaging.MessageBusStatus;
 import no.runsafe.framework.messaging.Response;
 import no.runsafe.framework.plugin.PluginResolver;
+import no.runsafe.framework.server.ObjectWrapper;
+import no.runsafe.framework.server.event.player.RunsafeCustomEvent;
 import no.runsafe.framework.server.player.RunsafePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.messaging.PluginMessageListener;
+import org.bukkit.plugin.messaging.PluginMessageListenerRegistration;
 import org.joda.time.DateTime;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
+import org.kitteh.vanish.hooks.Hook;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class PlayerVanishManager implements IMessageBusService, IPlayerDataProvider, IPlayerVisibility
 {
-	public PlayerVanishManager(PluginResolver resolver)
+	public PlayerVanishManager(PluginResolver resolver, VanishEvents hook)
 	{
-		vanishNoPacket = resolver.<VanishPlugin>getPlugin("VanishNoPacket").getManager();
+		VanishPlugin plugin = resolver.<VanishPlugin>getPlugin("VanishNoPacket");
+		vanishNoPacket = plugin.getManager();
+		plugin.getHookManager().registerHook("runsafe", hook);
 	}
 
 	@Override
