@@ -16,12 +16,12 @@ public class VanishEvents extends Hook
 	@Override
 	public void onUnvanish(Player player)
 	{
-		new RunsafeCustomEvent(ObjectWrapper.convert(player), "vanished", false);
+		new RunsafeCustomEvent(ObjectWrapper.convert(player), "vanished", false).Fire();
 	}
 
 	@Override
 	public void onVanish(Player player)
 	{
-		new RunsafeCustomEvent(ObjectWrapper.convert(player), "vanished", true);
+		new RunsafeCustomEvent(ObjectWrapper.convert(player), "vanished", true).Fire();
 	}
 }
