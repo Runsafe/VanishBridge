@@ -13,5 +13,6 @@ public class Plugin extends RunsafePlugin
 		addComponent(FakeJoin.class);
 		addComponent(FakeQuit.class);
 		addComponent(VanishEvents.class);
+		addComponent(EventFactory.class);
 	}
 }
