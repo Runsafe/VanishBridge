@@ -8,20 +8,23 @@ import org.kitteh.vanish.hooks.Hook;
 
 public class VanishEvents extends Hook
 {
-	public VanishEvents()
+	public VanishEvents(EventFactory factory)
 	{
 		super(null);
+		this.factory = factory;
 	}
 
 	@Override
 	public void onUnvanish(Player player)
 	{
-		new RunsafeCustomEvent(ObjectWrapper.convert(player), "vanished", false).Fire();
+		factory.Fire(player, false);
 	}
 
 	@Override
 	public void onVanish(Player player)
 	{
-		new RunsafeCustomEvent(ObjectWrapper.convert(player), "vanished", true).Fire();
+		factory.Fire(player, true);
 	}
+
+	private final EventFactory factory;
 }
