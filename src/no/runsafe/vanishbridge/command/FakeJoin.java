@@ -1,29 +1,24 @@
 package no.runsafe.vanishbridge.command;
 
-import no.runsafe.framework.command.RunsafeAsyncPlayerCommand;
+import no.runsafe.framework.command.player.PlayerCommand;
 import no.runsafe.framework.server.RunsafeServer;
 import no.runsafe.framework.server.event.player.RunsafePlayerJoinEvent;
 import no.runsafe.framework.server.player.RunsafePlayer;
-import no.runsafe.framework.timer.IScheduler;
 import no.runsafe.vanishbridge.PlayerVanishManager;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class FakeJoin extends RunsafeAsyncPlayerCommand
+import java.util.HashMap;
+
+public class FakeJoin extends PlayerCommand
 {
-	public FakeJoin(IScheduler scheduler, PlayerVanishManager playerVanishManager)
+	public FakeJoin(PlayerVanishManager playerVanishManager)
 	{
-		super("fakejoin", scheduler);
+		super("fakejoin", "Unvanishes and fakes a join event", "runsafe.vanish.fakequit");
 		manager = playerVanishManager;
 	}
 
 	@Override
-	public String requiredPermission()
-	{
-		return "runsafe.vanish.fakequit";
-	}
-
-	@Override
-	public String OnExecute(RunsafePlayer player, String[] strings)
+	public String OnExecute(RunsafePlayer player, HashMap<String, String> stringStringHashMap, String[] strings)
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerJoinEvent fake = new RunsafePlayerJoinEvent(new PlayerJoinEvent(player.getRawPlayer(), null));
@@ -32,5 +27,5 @@ public class FakeJoin extends RunsafeAsyncPlayerCommand
 		return null;
 	}
 
-	PlayerVanishManager manager;
+	final PlayerVanishManager manager;
 }
