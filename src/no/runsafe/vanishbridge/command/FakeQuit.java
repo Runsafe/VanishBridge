@@ -18,7 +18,7 @@ public class FakeQuit extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(RunsafePlayer player, HashMap<String, String> stringStringHashMap, String[] strings)
+	public String OnExecute(RunsafePlayer player, HashMap<String, String> stringStringHashMap)
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerQuitEvent fake = new RunsafePlayerQuitEvent(new PlayerQuitEvent(player.getRawPlayer(), null));

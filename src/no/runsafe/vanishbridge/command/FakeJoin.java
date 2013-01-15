@@ -18,7 +18,7 @@ public class FakeJoin extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(RunsafePlayer player, HashMap<String, String> stringStringHashMap, String[] strings)
+	public String OnExecute(RunsafePlayer player, HashMap<String, String> stringStringHashMap)
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerJoinEvent fake = new RunsafePlayerJoinEvent(new PlayerJoinEvent(player.getRawPlayer(), null));
