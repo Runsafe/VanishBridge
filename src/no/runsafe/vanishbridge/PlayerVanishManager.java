@@ -4,6 +4,7 @@ import no.runsafe.framework.hook.IPlayerDataProvider;
 import no.runsafe.framework.hook.IPlayerVisibility;
 import no.runsafe.framework.server.RunsafeServer;
 import no.runsafe.framework.server.player.RunsafePlayer;
+import org.bukkit.entity.Player;
 import org.joda.time.DateTime;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
@@ -52,7 +53,8 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	@Override
 	public boolean isPlayerVanished(RunsafePlayer player)
 	{
-		return vanishNoPacket.isVanished(player.getRawPlayer());
+		Player rawPlayer = player.getRawPlayer();
+		return rawPlayer != null && vanishNoPacket.isVanished(rawPlayer);
 	}
 
 	public void setVanished(RunsafePlayer player, boolean vanished)
