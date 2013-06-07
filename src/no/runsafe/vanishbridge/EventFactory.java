@@ -1,7 +1,7 @@
 package no.runsafe.vanishbridge;
 
-import no.runsafe.framework.server.ObjectWrapper;
 import no.runsafe.framework.server.event.player.RunsafeCustomEvent;
+import no.runsafe.framework.wrapper.ObjectWrapper;
 import org.bukkit.entity.Player;
 
 public class EventFactory
