@@ -5,7 +5,6 @@ import no.runsafe.framework.hook.IPlayerVisibility;
 import no.runsafe.framework.server.RunsafeServer;
 import no.runsafe.framework.server.player.RunsafePlayer;
 import org.bukkit.entity.Player;
-import org.joda.time.DateTime;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
 
@@ -29,18 +28,6 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 			response.put("vanished", "true");
 			return response;
 		}
-		return null;
-	}
-
-	@Override
-	public DateTime GetPlayerLogout(RunsafePlayer player)
-	{
-		return null;
-	}
-
-	@Override
-	public String GetPlayerBanReason(RunsafePlayer player)
-	{
 		return null;
 	}
 
