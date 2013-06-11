@@ -1,9 +1,9 @@
 package no.runsafe.vanishbridge.command;
 
-import no.runsafe.framework.command.player.PlayerCommand;
-import no.runsafe.framework.server.RunsafeServer;
-import no.runsafe.framework.server.event.player.RunsafePlayerQuitEvent;
-import no.runsafe.framework.server.player.RunsafePlayer;
+import no.runsafe.framework.api.command.player.PlayerCommand;
+import no.runsafe.framework.minecraft.RunsafeServer;
+import no.runsafe.framework.minecraft.event.player.RunsafePlayerQuitEvent;
+import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import no.runsafe.vanishbridge.PlayerVanishManager;
 import org.bukkit.event.player.PlayerQuitEvent;
 

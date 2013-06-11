@@ -1,9 +1,9 @@
 package no.runsafe.vanishbridge;
 
-import no.runsafe.framework.hook.IPlayerDataProvider;
-import no.runsafe.framework.hook.IPlayerVisibility;
-import no.runsafe.framework.server.RunsafeServer;
-import no.runsafe.framework.server.player.RunsafePlayer;
+import no.runsafe.framework.api.hook.IPlayerDataProvider;
+import no.runsafe.framework.api.hook.IPlayerVisibility;
+import no.runsafe.framework.minecraft.RunsafeServer;
+import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import org.bukkit.entity.Player;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;

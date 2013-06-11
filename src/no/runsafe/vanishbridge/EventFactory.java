@@ -1,7 +1,7 @@
 package no.runsafe.vanishbridge;
 
-import no.runsafe.framework.server.event.player.RunsafeCustomEvent;
-import no.runsafe.framework.wrapper.ObjectWrapper;
+import no.runsafe.framework.internal.wrapper.ObjectWrapper;
+import no.runsafe.framework.minecraft.event.player.RunsafeCustomEvent;
 import org.bukkit.entity.Player;
 
 public class EventFactory
