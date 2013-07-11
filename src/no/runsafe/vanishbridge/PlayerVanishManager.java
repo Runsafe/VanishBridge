@@ -31,10 +31,11 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 		return null;
 	}
 
+
 	@Override
-	public boolean canPlayerASeeB(RunsafePlayer a, RunsafePlayer b)
+	public boolean isPlayerHidden(RunsafePlayer viewer, RunsafePlayer target)
 	{
-		return !vanishNoPacket.isVanished(b.getRawPlayer()) || a.hasPermission("vanish.see");
+		return vanishNoPacket.isVanished(target.getRawPlayer()) && !viewer.hasPermission("vanish.see");
 	}
 
 	@Override
