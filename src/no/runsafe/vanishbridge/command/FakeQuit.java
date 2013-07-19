@@ -7,7 +7,7 @@ import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import no.runsafe.vanishbridge.PlayerVanishManager;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class FakeQuit extends PlayerCommand
 {
@@ -18,7 +18,7 @@ public class FakeQuit extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(RunsafePlayer player, HashMap<String, String> stringStringHashMap)
+	public String OnExecute(RunsafePlayer player, Map<String, String> stringStringHashMap)
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerQuitEvent fake = new RunsafePlayerQuitEvent(new PlayerQuitEvent(player.getRawPlayer(), null));

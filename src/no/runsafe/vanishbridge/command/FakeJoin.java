@@ -7,7 +7,7 @@ import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import no.runsafe.vanishbridge.PlayerVanishManager;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class FakeJoin extends PlayerCommand
 {
@@ -18,7 +18,7 @@ public class FakeJoin extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(RunsafePlayer player, HashMap<String, String> stringStringHashMap)
+	public String OnExecute(RunsafePlayer player, Map<String, String> stringStringHashMap)
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerJoinEvent fake = new RunsafePlayerJoinEvent(new PlayerJoinEvent(player.getRawPlayer(), null));
