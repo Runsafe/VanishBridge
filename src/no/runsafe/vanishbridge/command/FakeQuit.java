@@ -1,10 +1,12 @@
 package no.runsafe.vanishbridge.command;
 
 import no.runsafe.framework.api.command.player.PlayerCommand;
+import no.runsafe.framework.api.player.IPlayer;
+import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
 import no.runsafe.framework.minecraft.RunsafeServer;
 import no.runsafe.framework.minecraft.event.player.RunsafePlayerQuitEvent;
-import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import no.runsafe.vanishbridge.PlayerVanishManager;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Map;
@@ -18,10 +20,12 @@ public class FakeQuit extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(RunsafePlayer player, Map<String, String> stringStringHashMap)
+	public String OnExecute(IPlayer player, Map<String, String> stringStringHashMap)
 	{
 		manager.setVanished(player, false);
-		RunsafePlayerQuitEvent fake = new RunsafePlayerQuitEvent(new PlayerQuitEvent(player.getRawPlayer(), null));
+		RunsafePlayerQuitEvent fake = new RunsafePlayerQuitEvent(
+			new PlayerQuitEvent((Player) ObjectUnwrapper.convert(player), null)
+		);
 		fake.Fire();
 		manager.setVanished(player, true);
 		RunsafeServer.Instance.broadcastMessage(fake.getQuitMessage());

@@ -2,8 +2,9 @@ package no.runsafe.vanishbridge;
 
 import no.runsafe.framework.api.hook.IPlayerDataProvider;
 import no.runsafe.framework.api.hook.IPlayerVisibility;
+import no.runsafe.framework.api.player.IPlayer;
+import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
 import no.runsafe.framework.minecraft.RunsafeServer;
-import no.runsafe.framework.minecraft.player.RunsafePlayer;
 import org.bukkit.entity.Player;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
@@ -20,9 +21,10 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	}
 
 	@Override
-	public HashMap<String, String> GetPlayerData(RunsafePlayer player)
+	public HashMap<String, String> GetPlayerData(IPlayer player)
 	{
-		if (player.getRawPlayer() != null && vanishNoPacket.isVanished(player.getRawPlayer()))
+		Player bukkitPlayer = ObjectUnwrapper.convert(player);
+		if (bukkitPlayer != null && vanishNoPacket.isVanished(bukkitPlayer))
 		{
 			HashMap<String, String> response = new HashMap<String, String>();
 			response.put("vanished", "true");
@@ -31,24 +33,24 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 		return null;
 	}
 
-
 	@Override
-	public boolean isPlayerHidden(RunsafePlayer viewer, RunsafePlayer target)
+	public boolean isPlayerHidden(IPlayer viewer, IPlayer target)
 	{
-		return vanishNoPacket.isVanished(target.getRawPlayer()) && !viewer.hasPermission("vanish.see");
+		return vanishNoPacket.isVanished((Player) ObjectUnwrapper.convert(viewer)) && !viewer.hasPermission("vanish.see");
 	}
 
 	@Override
-	public boolean isPlayerVanished(RunsafePlayer player)
+	public boolean isPlayerVanished(IPlayer player)
 	{
-		Player rawPlayer = player.getRawPlayer();
-		return rawPlayer != null && vanishNoPacket.isVanished(rawPlayer);
+		Player bukkitPlayer = ObjectUnwrapper.convert(player);
+		return bukkitPlayer != null && vanishNoPacket.isVanished(bukkitPlayer);
 	}
 
-	public void setVanished(RunsafePlayer player, boolean vanished)
+	public void setVanished(IPlayer player, boolean vanished)
 	{
-		if (vanishNoPacket.isVanished(player.getRawPlayer()) != vanished)
-			vanishNoPacket.toggleVanish(player.getRawPlayer());
+		Player bukkitPlayer = ObjectUnwrapper.convert(player);
+		if (vanishNoPacket.isVanished(bukkitPlayer) != vanished)
+			vanishNoPacket.toggleVanish(bukkitPlayer);
 	}
 
 	private final VanishManager vanishNoPacket;
