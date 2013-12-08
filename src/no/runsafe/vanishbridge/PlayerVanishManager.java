@@ -1,10 +1,10 @@
 package no.runsafe.vanishbridge;
 
+import no.runsafe.framework.api.IServer;
 import no.runsafe.framework.api.hook.IPlayerDataProvider;
 import no.runsafe.framework.api.hook.IPlayerVisibility;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
-import no.runsafe.framework.minecraft.RunsafeServer;
 import org.bukkit.entity.Player;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
@@ -13,9 +13,9 @@ import java.util.HashMap;
 
 public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibility
 {
-	public PlayerVanishManager(VanishEvents hook)
+	public PlayerVanishManager(VanishEvents hook, IServer server)
 	{
-		VanishPlugin plugin = RunsafeServer.Instance.getPlugin("VanishNoPacket");
+		VanishPlugin plugin = server.getPlugin("VanishNoPacket");
 		vanishNoPacket = plugin.getManager();
 		plugin.getHookManager().registerHook("runsafe", hook);
 	}
