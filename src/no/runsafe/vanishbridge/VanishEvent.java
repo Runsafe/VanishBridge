@@ -1,11 +1,11 @@
 package no.runsafe.vanishbridge;
 
+import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.minecraft.event.player.RunsafeCustomEvent;
-import no.runsafe.framework.minecraft.player.RunsafePlayer;
 
 public class VanishEvent extends RunsafeCustomEvent
 {
-	public VanishEvent(RunsafePlayer player, boolean vanished)
+	public VanishEvent(IPlayer player, boolean vanished)
 	{
 		super(player, "vanished");
 		this.vanished = vanished;
