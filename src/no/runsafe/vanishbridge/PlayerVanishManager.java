@@ -40,7 +40,7 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	{
 		// DEBUG
 		boolean hasPermission = viewer.hasPermission("vanish.see");
-		boolean isVanished = vanishNoPacket.isVanished((Player) ObjectUnwrapper.convert(viewer));
+		boolean isVanished = vanishNoPacket.isVanished((Player) ObjectUnwrapper.convert(target));
 		debug.debugInfo(hasPermission ? "The viewer has override perms" : "The viewer does not have override perms");
 		debug.debugInfo(isVanished ? "The target is not vanished" : "The target is vanished");
 		// DEBUG END
