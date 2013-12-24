@@ -45,7 +45,7 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 		debug.debugInfo(isVanished ? "The target is not vanished" : "The target is vanished");
 		// DEBUG END
 
-		return vanishNoPacket.isVanished((Player) ObjectUnwrapper.convert(viewer)) && !viewer.hasPermission("vanish.see");
+		return isVanished && !hasPermission;
 	}
 
 	@Override
