@@ -1,6 +1,7 @@
 package no.runsafe.vanishbridge.command;
 
 import no.runsafe.framework.api.IServer;
+import no.runsafe.framework.api.command.argument.IArgumentList;
 import no.runsafe.framework.api.command.player.PlayerCommand;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
@@ -8,8 +9,6 @@ import no.runsafe.framework.minecraft.event.player.RunsafePlayerJoinEvent;
 import no.runsafe.vanishbridge.PlayerVanishManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import java.util.Map;
 
 public class FakeJoin extends PlayerCommand
 {
@@ -21,7 +20,7 @@ public class FakeJoin extends PlayerCommand
 	}
 
 	@Override
-	public String OnExecute(IPlayer player, Map<String, String> stringStringHashMap)
+	public String OnExecute(IPlayer player, IArgumentList stringStringHashMap)
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerJoinEvent fake = new RunsafePlayerJoinEvent(
