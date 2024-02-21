@@ -7,7 +7,6 @@ import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
 import no.runsafe.framework.minecraft.event.player.RunsafePlayerJoinEvent;
 import no.runsafe.vanishbridge.PlayerVanishManager;
-import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class FakeJoin extends PlayerCommand
@@ -24,7 +23,7 @@ public class FakeJoin extends PlayerCommand
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerJoinEvent fake = new RunsafePlayerJoinEvent(
-			new PlayerJoinEvent((Player) ObjectUnwrapper.convert(player), null)
+			new PlayerJoinEvent(ObjectUnwrapper.convert(player), null)
 		);
 		fake.Fire();
 		server.broadcastMessage(fake.getJoinMessage());

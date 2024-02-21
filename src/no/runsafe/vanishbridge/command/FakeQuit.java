@@ -7,7 +7,6 @@ import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
 import no.runsafe.framework.minecraft.event.player.RunsafePlayerQuitEvent;
 import no.runsafe.vanishbridge.PlayerVanishManager;
-import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class FakeQuit extends PlayerCommand
@@ -24,7 +23,7 @@ public class FakeQuit extends PlayerCommand
 	{
 		manager.setVanished(player, false);
 		RunsafePlayerQuitEvent fake = new RunsafePlayerQuitEvent(
-			new PlayerQuitEvent((Player) ObjectUnwrapper.convert(player), null)
+			new PlayerQuitEvent(ObjectUnwrapper.convert(player), null)
 		);
 		fake.Fire();
 		manager.setVanished(player, true);

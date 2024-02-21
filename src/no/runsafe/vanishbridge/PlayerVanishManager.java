@@ -5,6 +5,7 @@ import no.runsafe.framework.api.hook.IPlayerDataProvider;
 import no.runsafe.framework.api.hook.IPlayerVisibility;
 import no.runsafe.framework.api.log.IDebug;
 import no.runsafe.framework.api.player.IPlayer;
+import no.runsafe.framework.internal.log.Console;
 import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
 import org.bukkit.entity.Player;
 import org.kitteh.vanish.VanishManager;
@@ -18,6 +19,12 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	{
 		this.debug = debug;
 		VanishPlugin plugin = server.getPlugin("VanishNoPacket");
+		if (plugin == null)
+		{
+			Console.Global().logWarning("VanishNoPacket not loaded");
+			vanishNoPacket = null;
+			return;
+		}
 		vanishNoPacket = plugin.getManager();
 		plugin.getHookManager().registerHook("runsafe", hook);
 	}
@@ -25,10 +32,14 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	@Override
 	public HashMap<String, String> GetPlayerData(IPlayer player)
 	{
+		if (vanishNoPacket == null)
+		{
+			return null;
+		}
 		Player bukkitPlayer = ObjectUnwrapper.convert(player);
 		if (bukkitPlayer != null && vanishNoPacket.isVanished(bukkitPlayer))
 		{
-			HashMap<String, String> response = new HashMap<String, String>();
+			HashMap<String, String> response = new HashMap<>();
 			response.put("vanished", "true");
 			return response;
 		}
@@ -38,9 +49,16 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	@Override
 	public boolean isPlayerHidden(IPlayer viewer, IPlayer target)
 	{
+		if (vanishNoPacket == null)
+		{
+			return false;
+		}
 		// DEBUG
 		boolean hasPermission = viewer.hasPermission("vanish.see");
-		boolean isVanished = vanishNoPacket.isVanished((Player) ObjectUnwrapper.convert(target));
+		Player player = ObjectUnwrapper.convert(target);
+		if (player == null)
+			return true;
+		boolean isVanished = vanishNoPacket.isVanished(player);
 		debug.debugInfo(hasPermission ? "The viewer has override perms" : "The viewer does not have override perms");
 		debug.debugInfo(isVanished ? "The target is not vanished" : "The target is vanished");
 		// DEBUG END
@@ -51,14 +69,22 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	@Override
 	public boolean isPlayerVanished(IPlayer player)
 	{
+		if (vanishNoPacket == null)
+		{
+			return false;
+		}
 		Player bukkitPlayer = ObjectUnwrapper.convert(player);
 		return bukkitPlayer != null && vanishNoPacket.isVanished(bukkitPlayer);
 	}
 
 	public void setVanished(IPlayer player, boolean vanished)
 	{
+		if (vanishNoPacket == null)
+		{
+			return;
+		}
 		Player bukkitPlayer = ObjectUnwrapper.convert(player);
-		if (vanishNoPacket.isVanished(bukkitPlayer) != vanished)
+		if (bukkitPlayer != null && vanishNoPacket.isVanished(bukkitPlayer) != vanished)
 			vanishNoPacket.toggleVanish(bukkitPlayer);
 	}
 
