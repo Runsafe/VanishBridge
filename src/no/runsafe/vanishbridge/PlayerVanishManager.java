@@ -3,6 +3,7 @@ package no.runsafe.vanishbridge;
 import no.runsafe.framework.api.IServer;
 import no.runsafe.framework.api.hook.IPlayerDataProvider;
 import no.runsafe.framework.api.hook.IPlayerVisibility;
+import no.runsafe.framework.api.hook.PlayerData;
 import no.runsafe.framework.api.log.IDebug;
 import no.runsafe.framework.api.player.IPlayer;
 import no.runsafe.framework.internal.log.Console;
@@ -10,8 +11,6 @@ import no.runsafe.framework.internal.wrapper.ObjectUnwrapper;
 import org.bukkit.entity.Player;
 import org.kitteh.vanish.VanishManager;
 import org.kitteh.vanish.VanishPlugin;
-
-import java.util.HashMap;
 
 public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibility
 {
@@ -30,20 +29,27 @@ public class PlayerVanishManager implements IPlayerDataProvider, IPlayerVisibili
 	}
 
 	@Override
-	public HashMap<String, String> GetPlayerData(IPlayer player)
+	public void GetPlayerData(PlayerData data)
 	{
 		if (vanishNoPacket == null)
 		{
-			return null;
+			return;
 		}
-		Player bukkitPlayer = ObjectUnwrapper.convert(player);
-		if (bukkitPlayer != null && vanishNoPacket.isVanished(bukkitPlayer))
-		{
-			HashMap<String, String> response = new HashMap<>();
-			response.put("vanished", "true");
-			return response;
-		}
-		return null;
+		data.addData(
+			"vanished",
+			() ->
+			{
+				IPlayer player = data.getContext() instanceof IPlayer ? (IPlayer) data.getContext() : null;
+				if (player != null && player.shouldNotSee(data.getPlayer()))
+				{
+					return null;
+				}
+				Player bukkitPlayer = ObjectUnwrapper.convert(data.getPlayer());
+				return bukkitPlayer != null && vanishNoPacket.isVanished(bukkitPlayer)
+					? "true"
+					: null;
+			}
+		);
 	}
 
 	@Override
